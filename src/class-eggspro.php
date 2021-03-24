@@ -156,15 +156,33 @@ final class EggsPro {
 	 */
     private function includes() {
 
+        // Class
         include_once API_ABSPATH . '/src/class-Install.php';
 
+        // admin
+        include_once API_ABSPATH . '/src/class-dashbroad.php';
+        
+        // Module
+        include_once API_ABSPATH . '/src/class-carousel.php';
+
+        // Function Cores
 		include_once API_ABSPATH . '/src/function-cores.php';
 
+        // frontEnd
 		$this->frontend();
 
     }
+    /**
+     * Import View
+     */
 	private function frontend() {
+
 		include_once API_ABSPATH . '/src/view/menu.php';
 		include_once API_ABSPATH . '/src/view/global.php';
+
+        if( is_home() || is_front_page() ) {
+            include_once API_ABSPATH . '/src/view/home.php';
+        }
+
 	}
 }

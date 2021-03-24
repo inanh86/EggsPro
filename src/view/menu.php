@@ -67,6 +67,14 @@ function eggspro_menu_logo() { ?>
 /**
  * Right menu Nav
  */
-function eggspro_menu_right() { ?>
-
+function eggspro_menu_right() { 
+    $url = get_bloginfo( 'url').'/gio-hang';
+    ?>
+    <div class="general_head_right">
+        <ul>
+            <li><a data-toggle="collapse" href="#mySearch" role="button" aria-expanded="false" aria-controls="mySearch"><i class="bi bi-search"></i></a></li>
+            <li><a href="<?php echo $url;?>"><i class="bi bi-person"></i></a></li>
+            <li><a href="#"><i class="bi bi-cart3"></i><span class="cart_counter">0</span></a></li>
+        </ul>
+    </div>
 <?php }

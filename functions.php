@@ -1,10 +1,11 @@
 <?php 
-
-// Định nghĩa nameSpace
+// NameSpace
 if ( !defined('NAME_SPACE') ) {
     define('NAME_SPACE', 'eggspro_'); 
 }
-
+if(!defined('CODE_ERR')) {
+    define('CODE_ERR', NAME_SPACE.'error');
+}
 // Define API_PLUGIN_FILE.
 if ( ! defined( 'API_PLUGIN_FILE' ) ) {
 	define( 'API_PLUGIN_FILE', get_template_directory() );
