@@ -15,7 +15,7 @@ class Carousel {
 
     public function __construct($data=NULL) {
         if( empty($data) ) {
-            return new Baoloi($this->loi, __lang('Lổi yêu cầu thiết lập slide không thành công'));
+            return new Baoloi($this->loi, __lang('Lổi yêu cầu thiết lập slide không thành công', true));
         }
         // Run Slide 
         $this->data = $data;
@@ -42,21 +42,26 @@ class Carousel {
         add_action('add_meta_boxes', function() {
             add_meta_box(
                 'slide_box',                 
-                __lang('Danh sách banner', false),      
+                __lang('Danh sách banner'),      
                 [ self::class, 'renderHTML' ],           
                 'post_slide_banner'                
             );
         });
     }
-    public static function AddMenu() {
-        add_theme_page( 'Slide Banner', 'Theme Menu Settings', 'edit_theme_options', 'test-theme-options', 'theme_option_page' );
+    public static function subMenu() {
+
+    }
+    // gọi slide banner
+    public function goira() {
+
+    }
+    // tạo short code
+    public function shortcode() {
+
     }
     public static function renderHTML() {
         ?>
             <label for="wporg_field">Description for this field</label>
         <?php 
-    }
-    public function set() {
-
     }
 }

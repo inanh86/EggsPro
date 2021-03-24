@@ -162,7 +162,7 @@ final class EggsPro {
         // admin
         include_once API_ABSPATH . '/src/class-dashbroad.php';
         
-        // Module
+        // add-on
         include_once API_ABSPATH . '/src/class-carousel.php';
 
         // Function Cores
