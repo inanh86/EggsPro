@@ -1,21 +1,17 @@
 <?php defined('ABSPATH') || exit;
-
 /**
- * Side banner for home
+ * Side banner 
+ * @see 
+ * @version 1.0
  */
-add_action( NAME_SPACE.'index', function() { ?>
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <?php carousel();?>
-            </div>
-        </div>
-    </div>
-<?php }, 1);
-
-/**
- * Section Index
- */
-add_action(NAME_SPACE.'index', function() {
-
-}, 2);
+?>
+<div class="App-index">
+    <?php 
+    /**
+     * Bổ sung các componets sử dụng cho index
+     * @see 
+     */
+        eggspro_get_componet('slide');
+        eggspro_get_componet('owl-carousel'); // 
+    ?>
+</div>

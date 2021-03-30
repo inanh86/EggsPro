@@ -23,9 +23,10 @@ class DashBroad {
     }
     /**
      * Menu admin
+     * @see 
+     * @version 1.0
      */
     public static function add_menu() {
-
         // Main menu
         add_menu_page(
             __lang( 'Quản lý giao diện' ),
@@ -37,7 +38,7 @@ class DashBroad {
             30
         );
         // Sub Menu
-        \EggsPro\src\Carousel::subMenu();
+        \EggsPro\src\Carousel::menu();
     }
     /**
      * Main menu

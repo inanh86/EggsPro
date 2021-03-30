@@ -16,7 +16,7 @@ if( !defined('EGGSPRO_DIR_URL') ) {
 // tải các packages đc cài bằng composer
 require API_PLUGIN_FILE . './vendor/autoload.php';
 
-// Include the main class.
+// Class Final Main
 if ( ! class_exists( 'EggsPro', false ) ) {
 	include_once  API_PLUGIN_FILE . '/src/class-eggspro.php';
 }

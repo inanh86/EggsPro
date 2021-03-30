@@ -36,6 +36,7 @@ final class EggsPro {
 		$this->define_constants();
         $this->includes();
         $this->init_hooks();
+        $this->runClass();
     }
     /**
 	 * Define constant if not already set.
@@ -109,7 +110,6 @@ final class EggsPro {
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
 			'primary' => __( 'Primary Menu',      'eggspro' ),
-			'social'  => __( 'Social Links Menu', 'eggspro' ),
 		) );
 		/*
 		* Switch default core markup for search form, comment form, and comments
@@ -134,55 +134,62 @@ final class EggsPro {
 	public function scripts() {
 		wp_enqueue_style( 'BootStrap', '//cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css', [], '', 'all' );
 		wp_enqueue_style( 'BootStrap-icon', '//cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css', [], '', 'all' );
+        wp_enqueue_style( 'OwlCarousel2', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', [], '', 'all' );
+        wp_enqueue_style( 'OwlCarousel2-theme', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css', [], '', 'all' );
 		wp_enqueue_style( 'EggsPro-style', EGGSPRO_DIR_URL .'/style.css', [], $this->version, 'all' );
 		
 		wp_enqueue_script( 'BootStrap', '//cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js', [], '', true );
+        wp_enqueue_script( 'OwlCarousel2', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', [], '', true );
 		wp_enqueue_script( 'EggsPro', EGGSPRO_DIR_URL . '/src/assets/js/eggspro.js', [], $this->version, true );
 	}
 	public function style_tags( $tag, $handle, $src, $media ) {
 		if( $handle === 'BootStrap' ) {
 			$tag = "<link rel='stylesheet' id='{$handle}' href='{$src}' integrity='sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl' crossorigin='anonymous' type='text/css' media='{$media}' />";
 		}
+        if ( $handle === 'OwlCarousel2' ) {
+            $tag = "<link rel='stylesheet' id='{$handle}' href='{$src}' integrity='sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==' crossorigin='anonymous' type='text/css' media='{$media}' />";
+        }
+        if ( $handle === 'OwlCarousel2-theme' ) {
+            $tag = "<link rel='stylesheet' id='{$handle}' href='{$src}' integrity='sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==' crossorigin='anonymous' type='text/css' media='{$media}' />";
+        }
 		return $tag;
 	}
 	public function script_tags( $tag, $handle, $src ) {
 		if ( 'BootStrap' === $handle ) {
         	$tag = '<script type="text/javascript" src="' . esc_url( $src ) . '" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>';
     	}
+        if ( 'OwlCarousel2' === $handle ) {
+            $tag = '<script type="text/javascript" src="' . esc_url( $src ) . '" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>';
+        }
     	return $tag;
 	}
 	/**
 	 * Import các module cần
 	 */
-    private function includes() {
+    protected function includes() {
 
         // Class
         include_once API_ABSPATH . '/src/class-Install.php';
 
-        // admin
-        include_once API_ABSPATH . '/src/class-dashbroad.php';
+        // customize template
+        include_once API_ABSPATH . '/src/class-customize.php';
         
-        // add-on
-        include_once API_ABSPATH . '/src/class-carousel.php';
-
         // Function Cores
 		include_once API_ABSPATH . '/src/function-cores.php';
 
-        // frontEnd
-		$this->frontend();
-
+        // View
+        $this->frontend();
     }
     /**
      * Import View
      */
-	private function frontend() {
+	public function frontend() {
 
 		include_once API_ABSPATH . '/src/view/menu.php';
 		include_once API_ABSPATH . '/src/view/global.php';
-
-        if( is_home() || is_front_page() ) {
-            include_once API_ABSPATH . '/src/view/home.php';
-        }
-
 	}
+    protected function runClass() {
+        $this->customize = new \EggsPro\src\UX\Customize();
+        $this->customize->init();
+    }
 }

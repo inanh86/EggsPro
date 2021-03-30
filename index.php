@@ -1,4 +1,4 @@
 <?php 
 get_header();
-do_action( NAME_SPACE . 'index');
+eggspro_get_view('home');
 get_footer();
